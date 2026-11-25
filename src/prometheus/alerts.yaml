@@ -1,0 +1,16 @@
+groups:
+  - name: zea-demo
+    rules:
+      - alert: ServiceHighErrorRate
+        expr: |
+          (
+            sum by (service_name) (rate(traces_span_metrics_calls_total{span_kind="SPAN_KIND_SERVER", status_code="STATUS_CODE_ERROR"}[3m]))
+            /
+            sum by (service_name) (rate(traces_span_metrics_calls_total{span_kind="SPAN_KIND_SERVER"}[3m]))
+          ) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.service_name }} error rate is above 5%"
+          description: "{{ $labels.service_name }} error rate is {{ $value | humanizePercentage }} over the last 3 minutes."

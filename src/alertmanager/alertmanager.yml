@@ -1,0 +1,12 @@
+route:
+  receiver: zea
+  group_by: ["alertname", "service_name"]
+  group_wait: 10s
+  group_interval: 1m
+  repeat_interval: 1h
+
+receivers:
+  - name: zea
+    webhook_configs:
+      - url: http://host.docker.internal:8000/webhooks/alertmanager
+        send_resolved: true 
