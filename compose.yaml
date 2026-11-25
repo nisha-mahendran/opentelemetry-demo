@@ -126,7 +126,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 20M
+          memory: 128M
     restart: unless-stopped
     ports:
       - "${CHECKOUT_PORT}"
@@ -529,7 +529,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 20M
+          memory: 128M
     restart: unless-stopped
     ports:
       - "${PRODUCT_CATALOG_PORT}"
